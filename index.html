@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#14110f" />
+  <title>dead cheque</title>
+  <meta name="description" content="post-dated cheques on solana. write one, print it, stop payment before the date, deposit it with a photo." />
+  <link rel="icon" href="/favicon.svg" />
+</head>
+<body>
+  <header class="bar no-print">
+    <a href="#write" class="brand"><span class="mark">✠</span> dead cheque</a>
+    <div class="who">
+      <select id="acct" aria-label="signing as">
+        <option value="writer">demo: writer</option>
+        <option value="payee">demo: payee</option>
+        <option value="wallet">your wallet</option>
+      </select>
+      <span id="bal" class="bal"></span>
+    </div>
+  </header>
+  <nav class="tabs no-print">
+    <a href="#write">write</a><a href="#book">chequebook</a><a href="#deposit">deposit</a>
+  </nav>
+  <div id="note" class="note no-print" hidden></div>
+  <main id="view"></main>
+  <footer class="foot no-print">devnet · cheques settle in test dollars</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

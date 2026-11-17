@@ -1,0 +1,31 @@
+{
+  "name": "dead-cheque",
+  "version": "0.1.0",
+  "description": "post-dated cheques on solana: write, print, stop payment, deposit by photo",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "e2e": "node scripts/e2e.ts"
+  },
+  "author": "francis-codex",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@solana/spl-token": "^0.4.15",
+    "@solana/web3.js": "^1.99.0",
+    "@streamflow/stream": "^13.4.0",
+    "bn.js": "^5.2.5",
+    "jsqr": "^1.4.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.2.0",
+    "@types/qrcode": "^1.5.6",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "private": true
+}

@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "name": "keep copy lowercase",
+  "description": "check new ui copy follows the lowercase voice",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["src/main.ts", "index.html"] },
+  "then": { "type": "askAgent", "prompt": "check user-facing strings in the edited file. any copy with capitals (except addresses, codes and proper names) gets lowercased." }
+}

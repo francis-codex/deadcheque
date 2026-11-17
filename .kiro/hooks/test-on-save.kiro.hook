@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "name": "test the core on save",
+  "description": "run the unit tests when a core module changes",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["src/words.ts", "src/payload.ts", "src/cheque.ts", "tests/**/*.ts"] },
+  "then": { "type": "askAgent", "prompt": "run `npm test`. if anything fails, fix the code (not the test) unless the test is wrong, and say which." }
+}
