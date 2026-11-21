@@ -37,16 +37,31 @@ export async function connectInjected(): Promise<Signer> {
   return { publicKey: new PublicKey(p.publicKey.toString()), signTransaction: p.signTransaction.bind(p), signAllTransactions: p.signAllTransactions.bind(p) };
 }
 
+/** our own devnet gas faucet (api/faucet.ts). true once the wallet has gas. */
+export async function demoFaucet(conn: Connection, pubkey: string, f: typeof fetch = fetch): Promise<boolean> {
+  try {
+    const r = await f("/api/faucet", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ pubkey }) });
+    if (!r.ok) return false;
+    const { sig } = (await r.json()) as { sig?: string };
+    if (sig) await conn.confirmTransaction(sig, "confirmed");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** devnet: fund the demo writer, make a test dollar mint, give the payee gas. safe to call twice. */
 export async function setupDemo(conn: Connection, say: (s: string) => void): Promise<string> {
   const writer = demoKey("writer"), payee = demoKey("payee");
   if ((await conn.getBalance(writer.publicKey)) < 0.2 * LAMPORTS_PER_SOL) {
-    say("asking the devnet faucet for 1 sol…");
-    try {
-      const sig = await conn.requestAirdrop(writer.publicKey, LAMPORTS_PER_SOL);
-      await conn.confirmTransaction(sig, "confirmed");
-    } catch {
-      throw new Error(`the devnet faucet said no (it rate-limits). send 0.5 devnet sol to ${writer.publicKey.toBase58()} from faucet.solana.com, then try again.`);
+    say("getting devnet gas for the demo…");
+    if (!(await demoFaucet(conn, writer.publicKey.toBase58()))) {
+      try {
+        const sig = await conn.requestAirdrop(writer.publicKey, LAMPORTS_PER_SOL);
+        await conn.confirmTransaction(sig, "confirmed");
+      } catch {
+        throw new Error(`both devnet faucets said no. send 0.5 devnet sol to ${writer.publicKey.toBase58()} from faucet.solana.com, then try again.`);
+      }
     }
   }
   if ((await conn.getBalance(payee.publicKey)) < 0.01 * LAMPORTS_PER_SOL) {
