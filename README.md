@@ -29,7 +29,7 @@ npm run e2e        # writes, stops and clears real cheques on devnet
 
 in the app, tap **set up demo**. you get a demo writer and payee with 10,000 test dollars on devnet. switch between them at the top right, or use your own wallet.
 
-if the devnet faucet rate-limits you, the app shows the writer's address. send it 0.5 devnet sol from faucet.solana.com and tap again.
+gas comes from a small demo faucet (`api/faucet.ts`, 0.3 devnet sol, one per 10 min), so a judge needs no wallet and no faucet step. if that is empty it falls back to the public devnet airdrop, and only if both say no does the app show the writer address to fund from faucet.solana.com.
 
 ## built with kiro
 

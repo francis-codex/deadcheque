@@ -4,3 +4,4 @@ dist
 *.keypair.json
 scripts/.devnet-*.json
 .DS_Store
+.vercel
